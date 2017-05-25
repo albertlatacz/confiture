@@ -1,0 +1,2 @@
+# confiture
+Simple config
