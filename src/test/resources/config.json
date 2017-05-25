@@ -1,0 +1,32 @@
+{
+  "http": {
+    "port": 2223,
+    "host": "localhost"
+  },
+
+  "types" : {
+    "string" : "some string",
+    "integer" : 654,
+    "double" : 123.45,
+    "boolean" : true,
+    "map" :  {
+      "val1" : 12345,
+      "val2" : "some val"
+    },
+    "stringValues" : ["val1", "val2"],
+    "integerValues" : [1, 2],
+    "doubleValues" : [1.2, 3.4],
+    "booleanValues" : [true, false],
+    "mapValues": [
+      {
+        "val1": "map 1 val 1",
+        "val2": 1
+      },
+      {
+        "val1": "map 2 val 1",
+        "val2": 2
+      }
+    ]
+
+  }
+}
