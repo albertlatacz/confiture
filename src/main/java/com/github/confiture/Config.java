@@ -79,7 +79,7 @@ public class Config {
         return values(key, Boolean.class);
     }
 
-    public  <T> T value(String key, Class<T> valueClass) throws IllegalArgumentException {
+    public <T> T value(String key, Class<T> valueClass) throws IllegalArgumentException {
         try {
             return valueClass.cast(documentContext.read(key, valueClass));
         } catch (Exception e) {
@@ -87,7 +87,7 @@ public class Config {
         }
     }
 
-    public  <T> List<T> values(String key, Class<T> valueClass) throws IllegalArgumentException {
+    public <T> List<T> values(String key, Class<T> valueClass) throws IllegalArgumentException {
         try {
             return sequence(documentContext.read(key, List.class))
                     .map(convert(valueClass))
@@ -118,16 +118,16 @@ public class Config {
             return config(map(json));
         }
 
+        public static Config load(byte[] bytes) {
+            return load(Strings.string(bytes));
+        }
+
         public static Config load(File file) {
             return load(Strings.string(file));
         }
 
         public static Config load(InputStream inputStream) {
             return load(Strings.string(inputStream));
-        }
-
-        public static Config load(byte[] bytes) {
-            return load(Strings.string(bytes));
         }
 
         public static Config load(Reader reader) {
