@@ -5,8 +5,10 @@ import com.googlecode.totallylazy.functions.Function1;
 import com.jayway.jsonpath.DocumentContext;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -124,6 +126,14 @@ public class Config {
 
         public static Config load(File file) {
             return load(string(file));
+        }
+
+        public static Config load(URL url) {
+            try(InputStream inputStream = url.openStream()) {
+                return load(inputStream);
+            } catch (IOException e) {
+                throw new IllegalArgumentException(e);
+            }
         }
 
         public static Config load(InputStream inputStream) {
