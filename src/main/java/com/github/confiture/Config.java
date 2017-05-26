@@ -97,6 +97,11 @@ public class Config {
         }
     }
 
+    @Override
+    public String toString() {
+        return documentContext.jsonString();
+    }
+
     private <T> Function1<Object, T> convert(Class<T> valueClass) {
         return object -> {
             if (valueClass.isAssignableFrom(Integer.class)) return cast(Integer.valueOf(object.toString()));
