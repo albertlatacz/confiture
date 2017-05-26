@@ -16,7 +16,7 @@ public class ConfigTest {
     Config config = load(new File(getClass().getClassLoader().getResource("config.json").getFile()));
 
     @Test
-    public void supportsGettingSingleValues() {
+    public void supportsGettingSingleValue() {
         assertThat(config.stringValue("types.string"), is("some string"));
         assertThat(config.integerValue("types.integer"), is(654));
         assertThat(config.doubleValue("types.double"), is(123.45));
@@ -30,7 +30,7 @@ public class ConfigTest {
     }
 
     @Test
-    public void supportsGettingLists() {
+    public void supportsGettingListOfValues() {
         assertThat(config.stringValues("types.stringValues"), hasItems("val1", "val2"));
         assertThat(config.integerValues("types.integerValues"), hasItems(1, 2));
         assertThat(config.doubleValues("types.doubleValues"), hasItems(1.2, 3.4));
@@ -39,6 +39,22 @@ public class ConfigTest {
                 hasEntry("val1", "map 1 val 1"),
                 hasEntry("val1", "map 2 val 1")));
         assertThat(config.asConfigs("types.mapValues").get(0).stringValue("val1"), is("map 1 val 1"));
+    }
+
+    @Test
+    public void supportsGettingNestedValueWithPath() {
+        assertThat(config.value("nested1.nested2[1].nested3", String.class), is("nested 3 val 2"));
+        assertThat(config.values("nested1.nested2[1].nested3list", String.class).get(0), is("nested 3 list 2"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void failsWhenKeyNotFoundForSingleValue() {
+        config.value("unknownKey", String.class);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void failsWhenKeyNotFoundForListOfValues() {
+        config.values("unknownKey", String.class);
     }
 
     @Test(expected = IllegalArgumentException.class)

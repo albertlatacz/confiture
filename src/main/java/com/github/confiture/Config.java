@@ -16,6 +16,7 @@ import static com.googlecode.totallylazy.Unchecked.cast;
 import static com.googlecode.totallylazy.collections.PersistentMap.constructors.map;
 import static com.googlecode.totallylazy.json.Json.map;
 import static com.jayway.jsonpath.JsonPath.parse;
+import static java.lang.String.format;
 
 public class Config {
     private DocumentContext documentContext;
@@ -78,21 +79,21 @@ public class Config {
         return values(key, Boolean.class);
     }
 
-    private <T> T value(String key, Class<T> valueClass) throws IllegalArgumentException {
+    public  <T> T value(String key, Class<T> valueClass) throws IllegalArgumentException {
         try {
             return valueClass.cast(documentContext.read(key, valueClass));
         } catch (Exception e) {
-            throw new IllegalArgumentException("Couldn't get value", e);
+            throw new IllegalArgumentException(format("Couldn't get value (%s)", e.getMessage()), e);
         }
     }
 
-    private <T> List<T> values(String key, Class<T> valueClass) throws IllegalArgumentException {
+    public  <T> List<T> values(String key, Class<T> valueClass) throws IllegalArgumentException {
         try {
             return sequence(documentContext.read(key, List.class))
                     .map(convert(valueClass))
                     .toList();
         } catch (Exception e) {
-            throw new IllegalArgumentException("Couldn't get values", e);
+            throw new IllegalArgumentException(format("Couldn't get values (%s)", e.getMessage()), e);
         }
     }
 
@@ -103,7 +104,7 @@ public class Config {
             if (valueClass.isAssignableFrom(Boolean.class)) return cast(Boolean.valueOf(object.toString()));
             if (valueClass.isAssignableFrom(Map.class)) return cast(valueClass.cast(object));
             if (valueClass.isAssignableFrom(String.class)) return cast(object.toString());
-            throw new RuntimeException("Unknown mapping for type " + valueClass.getName());
+            throw new RuntimeException("Unable to convert " + valueClass.getName());
         };
     }
 

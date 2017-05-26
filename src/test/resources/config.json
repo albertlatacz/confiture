@@ -1,9 +1,4 @@
 {
-  "http": {
-    "port": 2223,
-    "host": "localhost"
-  },
-
   "types" : {
     "string" : "some string",
     "integer" : 654,
@@ -27,6 +22,18 @@
         "val2": 2
       }
     ]
+  },
 
+  "nested1" : {
+    "nested2": [
+      {
+        "nested3": "nested 3 val 1",
+        "nested3list": ["nested 3 list 1"]
+      },
+      {
+        "nested3": "nested 3 val 2",
+        "nested3list": ["nested 3 list 2"]
+      }
+    ]
   }
 }
