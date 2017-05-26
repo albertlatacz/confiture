@@ -1,6 +1,5 @@
 package com.github.confiture;
 
-import com.googlecode.totallylazy.Strings;
 import com.googlecode.totallylazy.collections.PersistentMap;
 import com.googlecode.totallylazy.functions.Function1;
 import com.jayway.jsonpath.DocumentContext;
@@ -12,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.googlecode.totallylazy.Sequences.sequence;
+import static com.googlecode.totallylazy.Strings.string;
 import static com.googlecode.totallylazy.Unchecked.cast;
 import static com.googlecode.totallylazy.collections.PersistentMap.constructors.map;
 import static com.googlecode.totallylazy.json.Json.map;
@@ -119,19 +119,19 @@ public class Config {
         }
 
         public static Config load(byte[] bytes) {
-            return load(Strings.string(bytes));
+            return load(string(bytes));
         }
 
         public static Config load(File file) {
-            return load(Strings.string(file));
+            return load(string(file));
         }
 
         public static Config load(InputStream inputStream) {
-            return load(Strings.string(inputStream));
+            return load(string(inputStream));
         }
 
         public static Config load(Reader reader) {
-            return load(Strings.string(reader));
+            return load(string(reader));
         }
     }
 }
